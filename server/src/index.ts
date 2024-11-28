@@ -4,8 +4,7 @@ const server: WebSocketServer = new WebSocketServer({ port: 8080 });
 
 server.on('connection', (ws: WebSocket): void => {
 
-    ws.on('message', (message: string): void => {
-        console.log(message);
+    ws.on('message', (message: Buffer): void => {
         server.clients.forEach(client => client.send(message));
     });
 
