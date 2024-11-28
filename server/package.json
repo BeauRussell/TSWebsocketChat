@@ -1,13 +1,16 @@
 {
-  "name": "TSWebsocketChat",
+  "name": "ts-websocket-chat",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
   "devDependencies": {
+    "@types/ws": "^8.5.13",
     "typescript": "^5.5.3"
   },
   "private": true
