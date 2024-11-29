@@ -7,19 +7,30 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+let name: string;
+
 ws.on('open', (): void => {
-    rl.question('What is your name?\n', (answer: string): void => {
-        ws.send(`${answer} has joined the chat!`)
+    rl.question('Username: ', (answer: string): void => {
+        name = answer;
+        ws.send(`${name} has joined the chat!`);
+        allowSendMessage();
     });
 });
 
 ws.on('message', (message: Buffer): void => {
-    console.log(message.toString());
-    rl.question('Type a message: ', (answer: string): void => {
-        ws.send(answer);
-    });
+    if (!message.toString().startsWith(`${name}`)) {
+        console.log(message.toString());
+    }
 });
 
 ws.on('close', (): void => {
     console.log('Client disconnected!');
 });
+
+function allowSendMessage(): void {
+    rl.question('Type a message: ', (answer: string): void => {
+        const message: string = `${name}: ${answer}`;
+        ws.send(message);
+        allowSendMessage();
+    });
+}
