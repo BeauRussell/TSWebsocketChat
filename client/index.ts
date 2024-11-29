@@ -19,7 +19,9 @@ ws.on('open', (): void => {
 
 ws.on('message', (message: Buffer): void => {
     if (!message.toString().startsWith(`${name}`)) {
-        console.log(message.toString());
+        // Need the newline in front to override the "Type a message:" question
+        console.log(`'\n'${message.toString()}`);
+        allowSendMessage();
     }
 });
 
